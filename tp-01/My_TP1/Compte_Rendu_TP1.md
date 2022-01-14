@@ -22,6 +22,7 @@ Erreur de compilation :
 * Apparition : Au moment de la compilation du programme
 * Raison : Erreur de syntaxe
 * Solution : Corriger la syntaxe  
+
 Erreur à l'exécution :  
 * Apparition : Au moment de l'exécution du programme
 * Raison : Erreur dans le comportement du programme (null pointer)
