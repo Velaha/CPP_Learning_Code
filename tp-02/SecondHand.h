@@ -1,4 +1,6 @@
-#include "MinuteHand.cpp"
+#pragma once
+
+#include "MinuteHand.h"
 
 class SecondHand {
 private:

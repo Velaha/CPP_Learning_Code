@@ -11,7 +11,7 @@ struct AddX
     void apply() const { global_sum += _x; }
 };
 
-// int AddX::global_sum = 0; // initialisation
+int AddX::global_sum = 0; // initialisation
 
 int main() {
     AddX add10 { 10 }, add5 { 5 };
@@ -31,5 +31,5 @@ int main() {
   17
   17
 
-  * 2. Si on enlève la ligne marquée initialisation
+  * 2. Si on enlève la ligne marquée initialisation alors le programme ne compile plus.
 */
