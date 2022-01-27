@@ -1,105 +1,90 @@
-# TP3 - Conteneurs de la STL
+# TP3 - Gestion mémoire
 
-## Exercice 1 - Syntaxe et complexité
+### Mise en place
 
-1. Indiquez dans le tableau suivant les complexités en temps de chaque opération :
+Si vous avez déjà forké et cloné le dépôt sur votre machine, assurez-vous que votre dépôt est bien à jour.
+Vous pouvez suivre [ce tutoriel](https://laefy.github.io/CPP_Learning/workflow/#récupérer-les-derniers-exercices-du-cours-et-du-tp) pour le faire.
+En cas de conflits, n'hésitez pas à suivre les conseils disponibles [ici](https://laefy.github.io/CPP_Learning/workflow/#résoudre-les-conflits).
 
-| conteneur    | insertion (en tête / en fin) | suppression (en tête / en fin) | accès |
-|--------------|-----------|----------|-----------|
-| array        | N/A       | N/A      |           |
-| vector       |           |          |           |
-| deque        |           |          |           |
-| forward_list |           |          |           |
-| list         |           |          |           |
-| set          |           |          |           |
-| unordered_set|           |          |           |
-
-2. Supposons que vous avez récupéré un itérateur sur un élément d'un conteneur avec : `auto it = std::find(c.begin(), c.end(), element_to_find)`.
-En fonction du type de conteneur, quelles sont les opérations succeptibles d'invalider cet itérateur ? Essayez d'être précis dans vos réponses.\
-Exemple : Si `c` est un `std::vector`, alors `it` peut être invalidé en cas de suppression d'un élément précédant `it` dans le conteneur.
-
-3. Quelle est la différence entre les fonctions `push_back` et `emplace_back` de la classe `std::vector<std::string>` ?
-
-4. Dans le code suivant, la classe `RelativePoint` modélise un point en 2D, dont la position est relative à celle d'un point d'origine.
-Pourquoi est-ce que l'expression `std::vector<RelativePoint>(3)` ne compile pas, alors que `std::vector<AbsolutePoint>(3)` compile ?\
-Ajoutez ce qu'il manque à la classe `RelativePoint` pour faire compiler le code précédent.
-
-```cpp
-struct AbsolutePoint {
-  double x = 0.0, y = 0.0;
-};
-
-AbsolutePoint default_origin;
-
-class RelativePoint {
-  const AbsolutePoint& _origin;
-  AbsolutePoint        _shift;
-public:
-  double get_x() const { return _origin.x + _shift.x; }
-  double get_y() const { return _origin.y + _shift.y; }
-};
-```
-
-5. [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)\
-Remplissez un `std::vector<unsigned long>` avec les nombres allant de 2 à 100'000. Ensuite, pour chaque entier `x` tel que `x² <= 100'000`, supprimez du tableau tous les entiers divisibles par `x`, excepté `x` lui-même. Les nombres restants dans le tableau devraient correspondre à tous les nombres premiers compris entre 2 et 100'000.\
-Combien y en a-t-il ? Ecrivez ce résultat dans la console.\
-Copiez et modifiez votre algorithme, afin d'utiliser en place du `std::vector` une `std::deque`, un `std::set` et un `std::unordered_set`. Augmentez ensuite l'intervalle d'exécution à \[2; 1'000'000\] et testez chacune des quatre versions. Que pouvez-vous constater ?
-
-6. Pourquoi le programme suivant ne compile pas ? Ajoutez le nécessaire à la classe `NumAndName` pour le corriger et faire en sorte qu'il affiche `zero un deux trois`.\
-Modifiez-le de nouveau afin d'obtenir `trois deux un zero`.
-
-```cpp
-#include <iostream>
-#include <set>
-#include <string>
-
-class NumAndName {
-  const int         _number;
-  const std::string _name;
-  
-public:
-  NumAndName(int number, std::string_view name) :
-    _number { number }, _name { name }
-  {}
-  
-  friend std::ostream& operator<<(std::ostream& os, const NumAndName& n) {
-    return os << n._name;
-  }
-};
-
-const std::set<NumAndName> num_and_names { { 3, "trois" }, { 1, "un" }, { 2, "deux" }, { 0, "zero" } };
-
-int main() {
-  for (const auto& nn: num_and_names) {
-    std::cout << nn << ' ';
-  }
-  
-  return 0;
-}
-```
-
-## Exercice 2 - Annuaire téléphonique
-
-Vous allez implémenter un annuaire téléphonique (comme le gros bottin qui traîne sur une étagère chez vos grand-parents).
-
-L'intérêt de l'annuaire, c'est que vous pouvez y rechercher facilement les numéros de téléphone de vos amis et ennemis, dès lors que vous connaissez leur
-nom et prénom. Le bottin étant trié par ordre alphabétique, quelle est la complexité de la recherche d'une personne dedans ?
-Afin d'avoir cette même complexité dans votre programme, quel conteneur pouvez-vous utiliser pour stocker les entrées de l'annuaire ? 
-
-Vous aurez également besoin de modéliser un numéro de téléphone, qui correspond à une série de 5 nombres entiers.
-Quel est le conteneur le plus adapté pour représenter cet objet ?
-
-Une fois que vous aurez répondu aux questions ci-dessus, vous pourrez commencer à implémentez les classes modélisant la situation.
-
-Comme on est gentils, nous vous avons défini les fonctions de tests permettant de vérifier que votre API fonctionne.
-Activez ces tests l'un après l'autre, afin d'implémenter vos classes et leurs fonctionnalités au-fur-et-à-mesure, en vérifiant à chaque étape que le code que vous
-ajoutez/modifiez compile et se comporte comme attendu.\
-=> Regardez dans tp-03/PhoneBook/Tests.h pour activer ou désactiver un test 
-
-Pensez bien à modifier le CMakeLists.txt du TP3 ainsi que le fichier Tests.cpp (pour les includes) dès que vous ajouter un nouveau fichier au projet.
+Si vous n'avez pas encore forké le dépôt, vous pouvez le faire à l'aide de [cette page](https://laefy.github.io/CPP_Learning/workflow/#récupérer-le-dépôt-git-du-cours-et-des-tps).
 
 ---
 
-Céline Noël, Stéphane Vialette, Mathias Weller  
+### Un peu de Lore
+
+L'exercice se déroule dans l'univers des Pokémons.
+
+Les Pokémons sont des créatures qui peuvent être capturées par des dresseurs au moyen de Pokéballs.
+Un dresseur peut avoir au maximum 6 Pokéballs sur lui.
+S'il capture un Pokémon alors que son équipe est déjà complète, ce nouveau Pokémon est envoyé dans un PC.
+Chaque dresseur connaît le PC vers lequel ses Pokémons sont envoyés, et un même PC peut être utilisé par différents dresseurs.
+
+---
+
+### Exercice
+
+L'objectif de cette séance est de vous faire manipuler les relations d'ownership entre les objets d'un programme, tout en continuant à vous familiariser avec l'usage des `unique_ptr`.
+
+Le TP sera à réaliser en utilisant la méthodologie TDD.
+Vous avez de la chance, tous les tests sont déjà écrits dans le fichier Tests.cpp (le framework utilisé est [Catch2](https://github.com/catchorg/Catch2/tree/v2.x)).
+Pour avancer, il faudra donc :
+- décommenter le prochain `TEST_CASE` (ou la prochaine `SECTION` si le `TEST_CASE` en contient plusieurs),
+- ajouter les fonctionnalités nécessaires pour faire en sorte que le programme compile,
+- modifier vos implémentations jusqu'à ce que le bloc de tests décommenté passe,
+- commiter vos changements.
+
+Faites attention à bien respecter l'ordre de ces étapes et à ne pas avancer trop vite, vous risqueriez de vous empêtrer dans un tas de bugs autrement.\
+Autre conseil, n'hésitez pas à faire le minimum syndical pour que les tests passent.
+Par exemple, si vous n'avez que le test `fonction_qui_a_lair_super_complique() == true` à faire passer, vous pouvez très bien écrire :
+```cpp
+void fonction_qui_a_lair_super_complique() { return true; } // ce n'est pas de la triche, au contraire
+```
+puis passez à l'étape suivante.
+
+Dernier petit point avant de commencer, il est **INTERDIT** de modifier le code des tests.
+La seule chose que vous devriez avoir besoin de faire dans le fichier `Tests.cpp`, c'est commenter ou décommenter des lignes.
+
+Bon courage à vous !
+Si vous êtes bloqués, n'hésitez pas à utiliser les indices ci-dessous :) 
+
+---
+
+### Indices
+
+**Pokemons can be constructed with their name**
+- Quelle classe pourriez-vous utiliser pour stocker le nom d'un Pokémon ?
+
+**Pokeballs are empty by default**
+- Faites au plus simple ici. Le but, c'est de faire en sorte que le test passe avec le moins de code possible.
+
+**Pokemons can be stored in Pokeballs**
+- Quel est le type renvoyé par `std::make_unique<T>` ?
+Déduisez-en le type de `pikachu`, puis la signature de `Pokeball::store`.
+
+**PCs are constructed with 0 pokemon inside**
+- Connaissez-vous une classe qui permet de stocker une liste d'objets et possède une fonction-membre `empty` ?
+- Déduisez-en un type de retour possible pour la fonction `PC::pokemons`. N'oubliez pas que c'est du TDD, tant que ça compile et que le test passe, on peut passer à la suite.
+
+**A Pokemon can be put inside the PC**
+- Puisqu'on utilise l'opérateur `->` sur `pokemons[0]`, de quels types selon vous peuvent être les éléments de `pokemons` ?
+- Sachant que le `PC` prend l'ownership des Pokémons qui sont stockés dedans, quel est le meilleur type à utiliser ?
+
+**Trainers are constructed with their name and they know the PC where their Pokemons get sent**
+- Pensez-vous que les dresseurs sont propriétaires de l'instance de `PC` qui leur est passé en paramètre ?
+
+**Trainers start with 6 empty pokeballs**
+- Cherchez sur cppreference une classe permettant de créer des conteneurs de taille fixe.
+
+**A Pokemon knows its trainer**
+- Pensez-vous qu'un Pokémon soit propriétaire de son dresseur ? Idéalement, comment devriez-vous du coup stocker l'information du dresseur de chaque Pokémon ?
+- Sachant qu'un Pokémon peut ne pas avoir de dresseur (lorsqu'il n'est pas capturé), que pourriez-vous utiliser à la place ?
+
+**A trainer can retrieve their Pokemons from the PC**
+- Recherchez sur cppreference comment supprimer un élément du conteneur que vous avez utilisé pour stocker les Pokémons dans le PC.
+Lorsque vous allez sur la documentation d'une fonction ou d'une classe, il faut toujours commencer par regarder les exemples.
+
+---
+
+Céline Noël, Victor Marsault, Mathias Weller  
 C++ Master 1    
-2020 - 2021
+2021 - 2022
