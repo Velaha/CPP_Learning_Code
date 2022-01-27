@@ -1,33 +1,41 @@
 #include <iostream>
+#include <memory>
 #include <string>
 #include <vector>
 
 struct Content
 {
     Content(const std::string& name)
-        : name { name }
-    {}
+        : name { name } {}
 
     std::string name;
 };
 
-class Bag
-{
+/*class Bag {
 public:
     Content& add(const std::string& name) { return _contents.emplace_back(name); }
 
 private:
     std::vector<Content> _contents;
+};*/
+
+class Bag {
+public:
+    Content& add(const std::string& name) {
+        std::unique_ptr<Content>& content = _contents.emplace_back(std::make_unique<Content>(name));
+        return *content;
+    }
+
+private:
+    std::vector<std::unique_ptr<Content>> _contents;
 };
 
-int main()
-{
+int main() {
     Bag bag;
 
     Content& my_thing = bag.add("my_thing");
 
-    for (size_t i = 0; i < 200; ++i)
-    {
+    for (size_t i = 0; i < 200; ++i) {
         bag.add("another_thing");
     }
 
