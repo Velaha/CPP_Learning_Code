@@ -14,7 +14,7 @@ public:
 
     void store(std::unique_ptr<Pokemon> pokemon) { _pokemon = std::move(pokemon); }
 
-    Pokemon& pokemon() { return *_pokemon; }
+    Pokemon& pokemon() const { return *_pokemon; }
 
 private:
     std::unique_ptr<Pokemon> _pokemon;
