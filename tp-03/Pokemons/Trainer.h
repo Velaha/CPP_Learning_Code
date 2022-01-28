@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Pokeball.h"
+
+#include <array>
 #include <string>
 
 class PC;
@@ -11,9 +14,12 @@ public:
         : _name { name }
         , _pc { pc } {}
 
-    std::string name() { return _name; }
+    const std::string& name() const { return _name; }
+
+    const std::array<Pokeball, 6>& pokeballs() const { return _pokeballs; }
 
 private:
-    std::string _name;
-    PC&         _pc;
+    std::string             _name;
+    PC&                     _pc;
+    std::array<Pokeball, 6> _pokeballs;
 };

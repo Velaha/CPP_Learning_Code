@@ -8,16 +8,14 @@
 // A ball where Pokemon sleep.
 class Pokeball {
 public:
-    bool empty() { return _empty; }
+    /*devant : bool
+    fin : fonction qui ne modifie pas l'objet*/
+    bool empty() const { return _pokemon == nullptr; }
 
-    void store(std::unique_ptr<Pokemon> pokemon) {
-        _pokemon = std::move(pokemon);
-        _empty   = false;
-    }
+    void store(std::unique_ptr<Pokemon> pokemon) { _pokemon = std::move(pokemon); }
 
     Pokemon& pokemon() { return *_pokemon; }
 
 private:
-    bool                     _empty = true;
     std::unique_ptr<Pokemon> _pokemon;
 };

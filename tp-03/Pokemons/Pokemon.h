@@ -9,7 +9,7 @@ public:
         : _name { name } {}
     Pokemon() {}
 
-    std::string name() { return _name; }
+    const std::string& name() const { return _name; }
 
 private:
     std::string _name;
