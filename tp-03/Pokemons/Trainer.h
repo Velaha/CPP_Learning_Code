@@ -31,6 +31,8 @@ public:
         _pc.receive(std::move(pokemon));
     }
 
+    void store_in_pc(size_t index) { _pc.receive(std::move(_pokeballs[index].yield())); }
+
 private:
     std::string             _name;
     PC&                     _pc;

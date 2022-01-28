@@ -16,6 +16,8 @@ public:
 
     Pokemon& pokemon() const { return *_pokemon; }
 
+    std::unique_ptr<Pokemon> yield() { return std::move(_pokemon); }
+
 private:
     std::unique_ptr<Pokemon> _pokemon;
 };
