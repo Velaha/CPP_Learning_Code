@@ -21,6 +21,7 @@ public:
     const std::array<Pokeball, 6>& pokeballs() const { return _pokeballs; }
 
     void capture(std::unique_ptr<Pokemon> pokemon) {
+        pokemon->setTrainer(*this);
         for (auto& pokeball : _pokeballs) {
             if (pokeball.empty()) {
                 pokeball.store(std::move(pokemon));
