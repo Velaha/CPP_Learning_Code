@@ -7,6 +7,7 @@ class Pokemon {
 public:
     Pokemon(std::string name)
         : _name { name } {}
+    Pokemon() {}
 
     std::string name() { return _name; }
 
