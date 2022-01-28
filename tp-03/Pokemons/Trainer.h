@@ -27,6 +27,7 @@ public:
                 return;
             }
         }
+        _pc.receive(std::move(pokemon));
     }
 
 private:
