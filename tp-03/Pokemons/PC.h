@@ -3,6 +3,7 @@
 #include "Pokemon.h"
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -16,6 +17,8 @@ public:
         _pokemons.emplace_back(std::move(pokemon));
         _empty = false;
     }
+
+    void give_back(Trainer& trainer, const std::string& name);
 
 private:
     std::vector<std::unique_ptr<Pokemon>> _pokemons;
