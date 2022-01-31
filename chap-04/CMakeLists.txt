@@ -17,6 +17,7 @@ add_executable(c4-2-farm
     2-farm/Chicken.h
     2-farm/Cow.h
     2-farm/Dog.h
+    2-farm/Opera.h
 )
 
 add_executable(c4-3-vehicles

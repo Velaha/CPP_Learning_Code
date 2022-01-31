@@ -2,8 +2,9 @@
 
 #include <iostream>
 
-class Animal
-{
+class Animal {
 public:
-    void sing() const { std::cout << "..." << std::endl; }
+    virtual ~Animal() {}
+
+    virtual void sing(char separator) const { std::cout << "..." << separator; }
 };
