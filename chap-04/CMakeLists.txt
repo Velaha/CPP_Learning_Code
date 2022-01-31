@@ -1,4 +1,5 @@
 add_executable(c4-1-hierarchy
+    1-hierarchy/Employee.h
     1-hierarchy/Hierarchy.cpp
     1-hierarchy/Boss.cpp
     1-hierarchy/Boss.h
