@@ -2,6 +2,8 @@ add_executable(tp4-phonecalls
     PhoneCalls/Main.cpp
     PhoneCalls/Person.h
     PhoneCalls/Phone.h
+    PhoneCalls/HomePhone.h
+    PhoneCalls/MobilePhone.h
 )
 
 add_executable(tp4-shapes
