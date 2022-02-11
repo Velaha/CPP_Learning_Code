@@ -14,6 +14,10 @@ class Shape {
 public:
     virtual PointContainer intersect(const Shape& other) const = 0;
     virtual PointContainer intersect(const Line& ln) const     = 0;
+
+    // virtual PointContainer intersect(const Circle& other) const { /*code pour pas être virtuel*/ }
+    // permet d'intersect des cercles entre eux
+
     virtual ~Shape() {}
 
     virtual std::ostream& print(std::ostream& os) const { return os << "some shape"; }
