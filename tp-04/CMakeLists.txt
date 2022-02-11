@@ -15,3 +15,5 @@ add_executable(tp4-shapes
     Shapes/rectangle.hpp
     Shapes/shape.hpp
 )
+
+add_executable(tp4-theory theory.cpp)
