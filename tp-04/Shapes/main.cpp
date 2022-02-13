@@ -43,6 +43,7 @@ int main(int, char**) {
     for (auto& p : some_shapes)
         delete p;
 
-    // L'intersection entre deux cercles n'est pas appelée car on ne génère pas le bon type d'argument lors
-    // des différentes boucles de intersect_all
+    // L'intersection entre deux cercles n'est pas appelée car on n'utilise pas la bonne fonction membre.
+    // Pour éviter cela, il faut déclarer explicement une fonction virtuelle intersect(const Circle& other)
+    // dans shape.hpp que la classe Circle implémentera différemment.
 }
